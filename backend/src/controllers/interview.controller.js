@@ -34,24 +34,32 @@ async function generateInterviewReportController(req, res) {
     }
   }
 
-  const interviewReportByAi = await generateInterviewReport({
-    resume: resumeContentText,
-    selfDescription: selfDescription || '',
-    jobDescription,
-  });
+  try {
+    const interviewReportByAi = await generateInterviewReport({
+      resume: resumeContentText,
+      selfDescription: selfDescription || '',
+      jobDescription,
+    });
 
-  const interviewReport = await InterviewReport.create({
-    user: req.user.id,
-    resume: resumeContentText,
-    selfDescription: selfDescription || '',
-    jobDescription,
-    ...interviewReportByAi,
-  });
+    const interviewReport = await InterviewReport.create({
+      user: req.user.id,
+      resume: resumeContentText,
+      selfDescription: selfDescription || '',
+      jobDescription,
+      ...interviewReportByAi,
+    });
 
-  res.status(201).json({
-    message: 'Interview report generated successfully.',
-    interviewReport,
-  });
+    res.status(201).json({
+      message: 'Interview report generated successfully.',
+      interviewReport,
+    });
+  } catch (error) {
+    console.error('AI Service Error:', error);
+    res.status(500).json({
+      message:
+        'Failed to generate report due to an AI service error. The service might be experiencing high demand. Please try again.',
+    });
+  }
 }
 
 async function getInterviewReportByIdController(req, res) {

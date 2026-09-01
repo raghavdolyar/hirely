@@ -7,13 +7,13 @@ const Home = () => {
   const { loading, generateReport, reports } = useInterview();
   const [jobDescription, setJobDescription] = useState("");
   const [selfDescription, setSelfDescription] = useState("");
+  const [resumeFile, setResumeFile] = useState(null);
   const resumeInputRef = useRef();
 
   const navigate = useNavigate();
 
   const handleGenerateReport = async () => {
     try {
-      const resumeFile = resumeInputRef.current?.files?.[0];
       const data = await generateReport({
         jobDescription,
         selfDescription,
@@ -24,7 +24,8 @@ const Home = () => {
       }
     } catch (error) {
       console.error("Failed to generate report", error);
-      alert("Failed to generate report. Please check your inputs.");
+      const errorMessage = error.response?.data?.message || "Failed to generate report. Please try again later.";
+      alert(errorMessage);
     }
   };
 
@@ -135,9 +136,9 @@ const Home = () => {
                   </svg>
                 </span>
                 <p className="dropzone__title">
-                  Click to upload or drag &amp; drop
+                  {resumeFile ? resumeFile.name : "Click to upload or drag & drop"}
                 </p>
-                <p className="dropzone__subtitle">PDF or DOCX (Max 5MB)</p>
+                <p className="dropzone__subtitle">{resumeFile ? "Resume ready for analysis" : "PDF or DOCX (Max 5MB)"}</p>
                 <input
                   ref={resumeInputRef}
                   hidden
@@ -145,6 +146,7 @@ const Home = () => {
                   id="resume"
                   name="resume"
                   accept=".pdf,.docx"
+                  onChange={(e) => setResumeFile(e.target.files[0])}
                 />
               </label>
             </div>

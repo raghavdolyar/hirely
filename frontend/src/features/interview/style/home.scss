@@ -1,17 +1,17 @@
 // ── Variables ────────────────────────────────────────────────────────────────
-$bg-page: #0d1117;
-$bg-card: #161b22;
-$bg-panel: #1c2230;
-$bg-input: #1e2535;
-$border-color: #2a3348;
-$text-primary: #e6edf3;
-$text-muted: #7d8590;
-$accent: #ff2d78;
-$accent-alt: #ff6b9d;
-$badge-required: #ff2d78;
-$badge-best: #ff2d78;
-$info-bg: #1b2a4a;
-$info-border: #2d4a7a;
+$bg-page: #121212;
+$bg-card: #1e1e1e;
+$bg-panel: #2c2c2c;
+$bg-input: #333333;
+$border-color: #424242;
+$text-primary: #e0e0e0;
+$text-muted: #9e9e9e;
+$accent: #64b5f6; // soothing blue
+$accent-alt: #81c784; // soothing green
+$badge-required: #e57373; // soothing red
+$badge-best: #ffd54f; // soothing yellow
+$info-bg: rgba(100, 181, 246, 0.1);
+$info-border: rgba(100, 181, 246, 0.3);
 $font-stack:
   system-ui,
   -apple-system,
@@ -358,7 +358,6 @@ $font-stack:
       &:hover {
         border-color: $accent;
         transform: translateY(-2px);
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
       }
 
       h3 {

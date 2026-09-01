@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "../style/interview.scss";
 import { useInterview } from "../hooks/useInterview.js";
-import { useParams } from "react-router";
+import { useParams, useNavigate } from "react-router";
 
 const NAV_ITEMS = [
   {
@@ -132,6 +132,7 @@ const Interview = () => {
   const [activeNav, setActiveNav] = useState("technical");
   const { report, getReportById, loading, getResumePdf } = useInterview();
   const { interviewId } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (interviewId) {
@@ -160,6 +161,19 @@ const Interview = () => {
         {/* ── Left Nav ── */}
         <nav className="interview-nav">
           <div className="nav-content">
+            <button
+              onClick={() => navigate("/")}
+              className="interview-nav__item"
+              style={{ marginBottom: '1.5rem', color: '#64b5f6' }}
+            >
+              <span className="interview-nav__icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="19" y1="12" x2="5" y2="12"></line>
+                  <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+              </span>
+              Back to Home
+            </button>
             <p className="interview-nav__label">Sections</p>
             {NAV_ITEMS.map((item) => (
               <button

@@ -15,8 +15,10 @@ app.use(
 
 // importing all the routes
 import authRouter from './routes/auth.routes.js';
+import interviewRouter from './routes/interview.routes.js';
 
 // using all the imported routes
 app.use('/api/auth', authRouter);
+app.use('/api/interview', interviewRouter);
 
 export default app;

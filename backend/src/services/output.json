@@ -1,0 +1,107 @@
+{
+  "matchScore": 88,
+  "technicalQuestions": [
+    {
+      "question": "Can you explain how Node.js handles asynchronous operations and the role of the Event Loop? Specifically, how does it scale compared to multi-threaded models?",
+      "intention": "To assess the candidate's core backend understanding of Node.js, asynchronous programming, and runtime architecture which is crucial for a Platform team role.",
+      "answer": "Explain the single-threaded nature of Node.js using the Event Loop, Libuv thread pool for blocking operations, and phases of the Event Loop (timers, poll, check). Contrast it with multi-threaded servers (like Apache) highlighting the non-blocking I/O efficiency for I/O-bound applications, and mention potential CPU-bound bottlenecks."
+    },
+    {
+      "question": "In your 'Penfolk' project, you implemented role-based access control. How did you design the authentication and authorization flow? Explain your JWT structure, token storage strategy, and database schema for roles.",
+      "intention": "To verify the candidate's hands-on experience with Authentication/Authorization (JWT, sessions) as requested in the JD, and test database schema design skills.",
+      "answer": "Explain the generation of JWTs on login (payload structure, signature using secret keys), storing tokens securely (e.g., HTTP-only cookies to prevent XSS), and middleware implementation in Express to verify tokens and inspect roles. Detail the MongoDB schema used to store user-to-role relationships efficiently."
+    },
+    {
+      "question": "For your URL Shortener project, how would you design the system to handle 10,000 write requests per second? How would you implement caching to optimize redirection performance?",
+      "intention": "To test the candidate's capability in system design, database indexing, and caching concepts, which are valuable 'bonus' requirementsfor the backend intern role.",
+      "answer": "Discuss database choice (MongoDB/NoSQL) and the necessity of indexing the custom/shortened key. Propose a caching layer using Redis to cache frequent URLs (LRU policy) to avoid hitting the database for redirections. Explain the algorithm used to generate unique short IDs (e.g., Base62 encoding) and handling hash collisions."
+    }
+  ],
+  "behavioralQuestions": [
+    {
+      "question": "The job description emphasizes collaborating with frontend engineers. Describe a situation in one of your full-stack projects (like Spendora) where you had to align with a specific UI/UX requirement. How did you design your API contracts to ensure smooth integration?",
+      "intention": "To evaluate the candidate's communication skills, teamwork, and ability to coordinate API contracts with frontend requirements.",
+      "answer": "Use the STAR method. Describe how the frontend layout of 'Spendora' required specific data formats for the AI insights chart. Explain how you proactively defined JSON API payloads, used Swagger/Postman for documentation, and resolved discrepancies in data structure through clear communication."
+    },
+    {
+      "question": "During the development of your projects, you worked with AI APIs (e.g., in Spendora) or complex rich text inputs. Tell me about a technical challenge or bug that you encountered, how you diagnosed it, and the approach you took to resolve it.",
+      "intention": "To understand the candidate's problem-solving methodology, debugging skills, and resilience when facing technical roadblocks.",
+      "answer": "Discuss a real bottleneck, such as slow response times from the AI API or rich text state sync issues in Penfolk. Explain the tools usedfor debugging (console logs, network tab, Profiler), the root cause analysis, the final solution implemented (e.g., asynchronous task queues, optimistic UI updates, or payload compression), and the lessons learned."
+    }
+  ],
+  "skillGaps": [
+    {
+      "skill": "Writing automated unit/integration tests (e.g., using Jest, Mocha, or Supertest)",
+      "severity": "medium"
+    },
+    {
+      "skill": "Containerization (Docker)",
+      "severity": "low"
+    },
+    {
+      "skill": "Continuous Integration/Continuous Deployment (CI/CD) pipelines",
+      "severity": "low"
+    },
+    {
+      "skill": "System Design & Scalability Patterns (such as Rate Limiting, Load Balancing)",
+      "severity": "medium"
+    }
+  ],
+  "preparationPlan": [
+    {
+      "day": 1,
+      "focus": "Node.js & Express Deep Dive",
+      "tasks": [
+        "Revise the Node.js Event Loop architecture, Event Emitters, and Stream APIs.",
+        "Study asynchronous patterns: Promises, async/await, and error handling middleware in Express.",
+        "Implement a simple middleware for rate-limiting or logging from scratch to solidify understanding."
+      ]
+    },
+    {
+      "day": 2,
+      "focus": "MongoDB & Database Optimization",
+      "tasks": [
+        "Study MongoDB indexing types (single field, compound, TTL) and how they optimize search queries.",
+        "Understand aggregation pipelines in MongoDB (useful for analytics projects like Spendora).",
+        "Compare SQL vs NoSQL databases in terms of scaling, transactions (ACID), and schema flexibility."
+      ]
+    },
+    {
+      "day": 3,
+      "focus": "Authentication, Authorization & Security",
+      "tasks": [
+        "Implement and dry-run JWT-based authentication flow, detailing how access tokens and refresh tokens work.",
+        "Read about secure cookie attributes (HttpOnly, Secure, SameSite) and common web vulnerabilities (XSS, CSRF).",
+        "Practice designing role-based access control (RBAC) schemas."
+      ]
+    },
+    {
+      "day": 4,
+      "focus": "Testing & Code Cleanliness",
+      "tasks": [
+        "Learn the basics of testing Express APIs using Jest and Supertest.",
+        "Write unit tests for a few API endpoints from previous projects (e.g., URL Shortener).",
+        "Study dependency injection and clean architectural patterns in Node.js backend development."
+      ]
+    },
+    {
+      "day": 5,
+      "focus": "Docker, CI/CD & System Design (Bonus Skills)",
+      "tasks": [
+        "Write a Dockerfile to containerize a Node.js/Express application.",
+        "Learn basic CI/CD concepts (GitHub Actions, build steps, automated test runs).",
+        "Review basic System Design patterns: Load balancers, Caching strategies (Redis), and horizontal scaling."
+      ]
+    },
+    {
+      "day": 6,
+      "focus": "Data Structures, Algorithms & Mock Interviews",
+      "tasks": [
+        "Revise fundamental DSA topics: Graphs, Trees, Dynamic Programming, and Heap.",
+        "Solve 3-4 LeetCode Medium problems in C++ focusing on hashing, maps, and two-pointer techniques.",
+        "Conduct a mock interview focusing on explaining thought processes clearly while coding."
+      ]
+    }
+  ],
+  "title": "Backend Software Engineer Intern (Platform Team)"
+}

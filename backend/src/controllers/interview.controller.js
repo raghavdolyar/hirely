@@ -1,4 +1,4 @@
-import { PDFParse } from 'pdf-parse';
+import pdfParse from 'pdf-parse';
 import {
   generateInterviewReport,
   generateResumePdf,
@@ -6,34 +6,42 @@ import {
 import InterviewReport from '../models/interview.model.js';
 
 async function generateInterviewReportController(req, res) {
-  if (!req.file) {
-    return res.status(400).json({
-      message: 'resume file is required',
-    });
-  }
-
   const { selfDescription, jobDescription } = req.body;
 
-  if (!selfDescription || !jobDescription) {
+  if (!jobDescription) {
     return res.status(400).json({
-      message: 'Please provide selfDescription and jobDescription',
+      message: 'Please provide jobDescription',
     });
   }
 
-  const parser = new PDFParse({ data: req.file.buffer });
-  const resumeContent = await parser.getText();
-  await parser.destroy();
+  if (!selfDescription && !req.file) {
+    return res.status(400).json({
+      message: 'Either selfDescription or resume file is required',
+    });
+  }
+
+  let resumeContentText = '';
+  if (req.file) {
+    try {
+      const parsedPdf = await pdfParse(req.file.buffer);
+      resumeContentText = parsedPdf.text;
+    } catch (error) {
+      return res.status(400).json({
+        message: 'Failed to parse resume PDF',
+      });
+    }
+  }
 
   const interviewReportByAi = await generateInterviewReport({
-    resume: resumeContent.text,
-    selfDescription,
+    resume: resumeContentText,
+    selfDescription: selfDescription || '',
     jobDescription,
   });
 
   const interviewReport = await InterviewReport.create({
     user: req.user.id,
-    resume: resumeContent.text,
-    selfDescription,
+    resume: resumeContentText,
+    selfDescription: selfDescription || '',
     jobDescription,
     ...interviewReportByAi,
   });

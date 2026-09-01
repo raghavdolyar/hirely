@@ -3,17 +3,17 @@ import {
   generateInterviewReport,
   getInterviewReportById,
   generateResumePdf,
-} from "../services/interview.api";
-import { useContext, useEffect } from "react";
-import { InterviewContext } from "../interview.context";
-import { useParams } from "react-router";
+} from '../services/interview.api';
+import { useContext, useEffect } from 'react';
+import { InterviewContext } from '../interview.context';
+import { useParams } from 'react-router';
 
 export const useInterview = () => {
   const context = useContext(InterviewContext);
   const { interviewId } = useParams();
 
   if (!context) {
-    throw new Error("useInterview must be used within an InterviewProvider");
+    throw new Error('useInterview must be used within an InterviewProvider');
   }
 
   const { loading, setLoading, report, setReport, reports, setReports } =
@@ -41,7 +41,7 @@ export const useInterview = () => {
     }
   };
 
-  const getReportById = async (interviewId) => {
+  const getReportById = async interviewId => {
     setLoading(true);
     try {
       const response = await getInterviewReportById(interviewId);
@@ -69,17 +69,17 @@ export const useInterview = () => {
     }
   };
 
-  const getResumePdf = async (interviewReportId) => {
+  const getResumePdf = async interviewReportId => {
     setLoading(true);
     let response = null;
     try {
       response = await generateResumePdf({ interviewReportId });
       const url = window.URL.createObjectURL(
-        new Blob([response], { type: "application/pdf" }),
+        new Blob([response], { type: 'application/pdf' }),
       );
-      const link = document.createElement("a");
+      const link = document.createElement('a');
       link.href = url;
-      link.setAttribute("download", `resume_${interviewReportId}.pdf`);
+      link.setAttribute('download', `resume_${interviewReportId}.pdf`);
       document.body.appendChild(link);
       link.click();
     } catch (error) {
@@ -91,9 +91,9 @@ export const useInterview = () => {
 
   useEffect(() => {
     if (interviewId) {
-      getReportById(interviewId);
+      getReportById(interviewId).catch(console.error);
     } else {
-      getReports();
+      getReports().catch(console.error);
     }
   }, [interviewId]);
 

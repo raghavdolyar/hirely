@@ -1,0 +1,100 @@
+{
+  "message": "Interview report generated successfully.",
+  "interviewReport": {
+    "jobDescription": "We are hiring a Backend Software Engineer Intern to join our platform team. Responsibilities include designing and building REST APIs, working with MongoDB and Express, writing clean and testable code, and collaborating with frontend engineers to ship features end to end. Requirements: strong fundamentals in data structures and algorithms, experience with Node.js/Express, familiarity with MongoDB or another NoSQL database, and exposure to authentication/authorization flows (JWT, sessions). Bonus: experience with Docker, CI/CD, or system design.",
+    "resume": "Raghav Dolyar +91-7988226170\n124102019\nBachelor of Technology 124102019@nitkkr.ac.in\nin Computer Science and Engineering GitHub\nNational Institute of Technology, Kurukshetra LinkedIn\nSummary\nComputer Science engineering undergraduate at NIT Kurukshetra and LeetCode Knight (1908 rating, 1200+\nproblems solved), combining robust algorithmic foundations with practical systems experience designing\ncollision-resistant REST APIs and deploying AI-driven financial platforms.\nEducation\nDegree Institute Board / University CGPA/Percentage Year\nB.Tech CSE National Institute of Technology, Kurukshetra NIT Kurukshetra 9.85 / 10.00 2024-2028\nSenior Secondary Hari Om Shiv Om Public School CBSE 98% 2023\nMatriculation Hari Om Shiv Om Public School CBSE 95.2% 2021\nProjects\n• Concise Jul 2026 – Present\nFull-stack URL shortening service | React, Node.js, Express, MongoDB, Redux, Tailwind CSS GitHub | Website\n– Architected a scalable REST API for URL shortening and custom slug generation, utilizing NanoID to produce secure,\ncollision-resistant 7-character unique identifiers\n– Engineered a highly responsive single-page application with React and Vite, implementing React Query for aggressive data\ncaching and Redux Toolkit for predictable state management\n– Optimized redirection routing by designing indexed MongoDB schemas for alias lookups, ensuring fast O(1) read performance\nwhile supporting persistent click analytics tracking\n– Implemented a secure HTTP-only cookie-based authentication pipeline via JSON Web Tokens (JWT) and bcrypt, mitigating\nXSS vulnerabilities and enabling personalized user dashboards\n• Spendora Jul 2026 – Present\nAI-driven personal finance application | PERN Stack, Neon DB, Google Gemini GitHub | Website\n– Built a full-stack AI expense tracker utilizing the PERN stack and Neon as an online database, achieving sub-45ms query\nlatency for real-time financial data synchronization\n– Engineered an intelligent insights engine using Google Gemini to process structured transaction data, cutting manual review\ntime by auto-generating tailored savings tips and health scores\n– Implemented a proactive budget monitoring pipeline with dynamic severity alerts, evaluating real-time categorized expen-\nditures against user-defined limits to prevent projected end-of-month overspending\n– Designed a responsive analytics dashboard utilizing Tailwind CSS and Recharts, backed by optimized SQL aggregations\nthat cut historical trend visualization load times by 40%\nTechnical Skills\n• Languages: C, C++, Python, Java, JS, TS, SQL\n• Developer Tools: Git, VS Code, Jupyter, Postman, Linux\n• Frameworks: React, Node.js, Express, Tailwind CSS\n• Cloud/Databases: MongoDB, MySQL, PostgreSQL, Supabase\nKey courses taken\n• Coursework: Data Structures and Algorithms, Object-Oriented Programming, Discrete Mathematics, Artificial Intelligence,\nDatabase Management Systems, Software Engineering, Operating Systems, Computer Networks\nPositions of Responsibility\n• Member,Open Code Developers Society, NIT KKR Sept 2025 - Present\n• Member,Technobyte, NIT KKR Aug 2024 - Jan 2026\nAchievements\n• Competitive Programming, LeetCode Knight (1908), Codeforces Pupil (1246), CodeChef 3 star Present\n• Institute Merit Certificate, Secured highest SGPA in Semester 2 (AY 2024–25) at NIT Kurukshetra 2025\n• IISER Aptitude Test, AIR 921; qualified for IISER Pune (Round 1) 2024\n• CBSE Merit Certificate (Mathematics), Ranked among the top 0.1% of candidates in AISSCE 2023 2023\n• District Topper (Science Stream), Yamunanagar, Haryana, AISSCE 2023 2023\nLast updated: July 17, 2026\n\n-- 1 of 1 --\n\n",
+    "selfDescription": "I'm a final-year CSE student who enjoys building full-stack projects end to end, from database schema design to frontend UI. I'm comfortable with the PERN and MERN stacks and spend a good chunk of my free time on competitive programming in C++. Looking for a software engineering role where I can work on backend systems and scalable APIs.",
+    "matchScore": 92,
+    "technicalQuestions": [
+      {
+        "question": "How did you optimize the MongoDB indexed schemas for your 'Concise' project to ensure fast O(1) read performance, and how do you handle potential index size constraints as data grows?",
+        "intention": "To assess the candidate's understanding of database index design, schema design patterns, and storage optimization in MongoDB, specifically verifying the implementation details of their projects.",
+        "answer": "The candidate should explain the concept of B-Tree indexing in MongoDB. They should detail how indexing the unique slug/alias field allows fast lookups. For scaling, they should mention monitoring index size (ensuring it fits in RAM), using compound index strategies if query patterns change, and discussing potential sharding strategies based on the hashed slug key if volume increases significantly."
+      },
+      {
+        "question": "In 'Concise', you implemented a secure HTTP-only cookie-based authentication pipeline using JWT and bcrypt. How would you design a token rotation mechanism to securely handle refresh tokens, and how do you mitigate CSRF attacks given that you are using cookies?",
+        "intention": "To evaluate the candidate's understanding of authentication flows, security vulnerabilities (specifically XSS and CSRF), and backend state/token management.",
+        "answer": "The candidate should cover: 1) Distinguishing access tokens (short-lived) and refresh tokens (long-lived, stored in HTTP-only, Secure, SameSite=Strict cookies). 2) Explaining refresh token rotation (revoking old tokens and issuing new pairs upon use to detect theft). 3) CSRF mitigation strategies like using anti-CSRF tokens or relying heavily on the SameSite cookie attribute."
+      },
+      {
+        "question": "How would you utilize Node.js streams or pagination strategies in Express to handle processing and returning highly aggregated transaction data, like you did in 'Spendora', without overloading server memory?",
+        "intention": "To test backend optimization knowledge, Node.js architecture (event loop and stream APIs), and efficient payload delivery to the frontend.",
+        "answer": "The candidate should discuss the limitations of loading massive datasets into memory. They should explain pagination (cursor-based vs offset-based) in PostgreSQL/Neon, and show understanding of how Node.js Streams can pipe data chunk-by-chunk from the database directly to the HTTP response, maintaining a low memory footprint."
+      }
+    ],
+    "behavioralQuestions": [
+      {
+        "question": "In the 'Spendora' project, you built an end-to-end full-stack app. Can you describe a scenario where you had to collaborate or negotiate with frontend requirements to structure your Express backend APIs efficiently?",
+        "intention": "To evaluate collaboration skills, communication, and API design trade-offs between frontend convenience and backend performance.",
+        "answer": "The candidate should use the STAR method. They should describe a situation where the frontend needed complex aggregated data. They should explain how they optimized the REST API response format (e.g., shaping the SQL aggregate JSON) to prevent the frontend from doing multiple expensive filter/map operations, while ensuring backend payload size remained minimal."
+      },
+      {
+        "question": "You maintain an excellent academic CGPA (9.85) while actively engaging in competitive programming and building complex full-stack projects. Describe a time when you had to manage competing deadlines, and how you prioritized your tasks.",
+        "intention": "To test time-management, prioritization skills, ability to handle pressure, and organizational strategies.",
+        "answer": "The candidate should explain how they prioritize tasks (e.g., using Eisenhower matrix, scheduling structured slots for academics vs. development, or setting realistic incremental milestones). They should highlight a specific instance where an academic exam collided with a project milestone and explain how planning ahead saved both."
+      }
+    ],
+    "skillGaps": [
+      {
+        "skill": "Docker and Containerization",
+        "severity": "medium"
+      },
+      {
+        "skill": "CI/CD Pipelines (e.g., GitHub Actions)",
+        "severity": "medium"
+      },
+      {
+        "skill": "Automated Backend Testing (e.g., Jest, Mocha, Supertest)",
+        "severity": "medium"
+      }
+    ],
+    "preparationPlan": [
+      {
+        "day": 1,
+        "focus": "Advanced Express & Middleware Architecture",
+        "tasks": [
+          "Review Node.js Event Loop, asynchronous error handling patterns, and custom middleware design.",
+          "Practice writing custom security and rate-limiting middlewares inside Express."
+        ]
+      },
+      {
+        "day": 2,
+        "focus": "Advanced SQL/NoSQL Database Design and Tuning",
+        "tasks": [
+          "Deep dive into MongoDB indexes (Compound, Partial, TTL) and aggregation pipelines.",
+          "Practice writing optimized PostgreSQL queries and analyze performance bottlenecks using EXPLAIN ANALYZE."
+        ]
+      },
+      {
+        "day": 3,
+        "focus": "Containerization Fundamentals (Bonus Skill Alignment)",
+        "tasks": [
+          "Learn Docker basics: write Dockerfiles for a Node.js/Express server and a MongoDB container.",
+          "Practice using Docker Compose to orchestrate multi-container full-stack applications locally."
+        ]
+      },
+      {
+        "day": 4,
+        "focus": "Automated Testing & CI/CD Pipelines",
+        "tasks": [
+          "Learn writing integration tests for REST APIs using Jest and Supertest.",
+          "Set up a basic CI/CD pipeline using GitHub Actions to automate linter and test suite runs."
+        ]
+      },
+      {
+        "day": 5,
+        "focus": "System Design and Mock Interviews",
+        "tasks": [
+          "Review basic System Design patterns: URL shortener design, database sharding, and caching strategies (Redis).",
+          "Conduct a mock interview focusing on explaining the design of 'Concise' and 'Spendora' using the STAR format."
+        ]
+      }
+    ],
+    "user": "6a96d233db27aecf195d3939",
+    "title": "Backend Software Engineer Intern",
+    "_id": "6a970680f57ceabb08b98c52",
+    "createdAt": "2026-09-01T17:08:16.794Z",
+    "updatedAt": "2026-09-01T17:08:16.794Z",
+    "__v": 0
+  }
+}

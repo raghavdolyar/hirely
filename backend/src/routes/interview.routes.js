@@ -19,7 +19,7 @@ router.post(
 
 router.get('/report/:interviewId', authUser, getInterviewReportByIdController);
 
-router.get('/', authMiddleware.authUser, getAllInterviewReportsController);
+router.get('/', authUser, getAllInterviewReportsController);
 
 router.post(
   '/resume/pdf/:interviewReportId',

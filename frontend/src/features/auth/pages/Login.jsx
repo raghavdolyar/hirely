@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router';
 import '../auth.form.scss';
 import { useAuth } from '../hooks/useAuth';
+import { Loader } from '../../../components/Loader';
 
 const Login = () => {
   const { loading, handleLogin } = useAuth();
@@ -12,17 +13,21 @@ const Login = () => {
 
   const handleSubmit = async evt => {
     evt.preventDefault();
-    await handleLogin({ email, password });
-    navigate('/');
+    try {
+      await handleLogin({ email, password });
+      navigate('/');
+    } catch (error) {
+      const msg = error.response?.data?.message || 'Login failed';
+      if (msg.includes('invalid email or password')) {
+        const wantsToRegister = window.confirm('Invalid credentials. If you don\'t have an account, would you like to register?');
+        if (wantsToRegister) {
+          navigate('/register');
+        }
+      } else {
+        alert(msg);
+      }
+    }
   };
-
-  if (loading) {
-    return (
-      <main>
-        <h1>Loading.......</h1>
-      </main>
-    );
-  }
 
   return (
     <main>
@@ -39,6 +44,7 @@ const Login = () => {
               id="email"
               name="email"
               placeholder="Enter email address"
+              required
             />
           </div>
           <div className="input-group">
@@ -51,9 +57,12 @@ const Login = () => {
               id="password"
               name="password"
               placeholder="Enter password"
+              required
             />
           </div>
-          <button className="button primary-button">Login</button>
+          <button className="button primary-button" disabled={loading}>
+            {loading ? <Loader /> : 'Login'}
+          </button>
         </form>
         <p>
           Don't have an account? <Link to={'/register'}>Register</Link>{' '}

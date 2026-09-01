@@ -2,17 +2,31 @@ import { useState, useRef } from "react";
 import "../style/home.scss";
 import { useInterview } from "../hooks/useInterview.js";
 import { useNavigate } from "react-router";
+import { Loader } from "../../../components/Loader";
 
 const Home = () => {
   const { loading, generateReport, reports } = useInterview();
   const [jobDescription, setJobDescription] = useState("");
   const [selfDescription, setSelfDescription] = useState("");
   const [resumeFile, setResumeFile] = useState(null);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [errorMsg, setErrorMsg] = useState(null);
   const resumeInputRef = useRef();
 
   const navigate = useNavigate();
 
   const handleGenerateReport = async () => {
+    setErrorMsg(null);
+    if (!jobDescription) {
+      setErrorMsg("Target Job Description is required.");
+      return;
+    }
+    if (!selfDescription && !resumeFile) {
+      setErrorMsg("Either a Resume or a Quick Self-Description is required.");
+      return;
+    }
+
+    setIsGenerating(true);
     try {
       const data = await generateReport({
         jobDescription,
@@ -24,8 +38,9 @@ const Home = () => {
       }
     } catch (error) {
       console.error("Failed to generate report", error);
-      const errorMessage = error.response?.data?.message || "Failed to generate report. Please try again later.";
-      alert(errorMessage);
+      setErrorMsg(error.response?.data?.message || "Failed to generate report. Please try again later.");
+    } finally {
+      setIsGenerating(false);
     }
   };
 
@@ -49,6 +64,23 @@ const Home = () => {
           build a winning strategy.
         </p>
       </header>
+
+      {/* Error Message */}
+      {errorMsg && (
+        <div style={{
+          backgroundColor: 'rgba(210, 13, 59, 0.1)',
+          color: '#ff2a73',
+          padding: '12px 20px',
+          borderRadius: '8px',
+          border: '1px solid rgba(210, 13, 59, 0.3)',
+          marginBottom: '1rem',
+          textAlign: 'center',
+          maxWidth: '900px',
+          margin: '0 auto 1rem auto'
+        }}>
+          {errorMsg}
+        </div>
+      )}
 
       {/* Main Card */}
       <div className="interview-card">
@@ -136,7 +168,30 @@ const Home = () => {
                   </svg>
                 </span>
                 <p className="dropzone__title">
-                  {resumeFile ? resumeFile.name : "Click to upload or drag & drop"}
+                  {resumeFile ? (
+                    <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+                      {resumeFile.name}
+                      <button 
+                        type="button" 
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setResumeFile(null);
+                          if(resumeInputRef.current) resumeInputRef.current.value = null;
+                        }}
+                        style={{
+                          background: 'rgba(210, 13, 59, 0.2)',
+                          border: 'none',
+                          color: '#ff2a73',
+                          borderRadius: '4px',
+                          padding: '2px 6px',
+                          cursor: 'pointer',
+                          fontSize: '0.8rem'
+                        }}
+                      >
+                        Remove
+                      </button>
+                    </span>
+                  ) : "Click to upload or drag & drop"}
                 </p>
                 <p className="dropzone__subtitle">{resumeFile ? "Resume ready for analysis" : "PDF or DOCX (Max 5MB)"}</p>
                 <input
@@ -215,17 +270,23 @@ const Home = () => {
           <span className="footer-info">
             AI-Powered Strategy Generation &bull; Approx 30s
           </span>
-          <button onClick={handleGenerateReport} className="generate-btn">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-            >
-              <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" />
-            </svg>
-            Generate My Interview Strategy
+          <button onClick={handleGenerateReport} className="generate-btn" disabled={isGenerating}>
+            {isGenerating ? (
+              <Loader />
+            ) : (
+              <>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" />
+                </svg>
+                Generate My Interview Strategy
+              </>
+            )}
           </button>
         </div>
       </div>

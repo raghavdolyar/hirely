@@ -1,0 +1,12 @@
+import { Navbar } from './Navbar';
+
+export const Layout = ({ children }) => {
+  return (
+    <div className="layout">
+      <Navbar />
+      <main className="layout__content">
+        {children}
+      </main>
+    </div>
+  );
+};

@@ -24,7 +24,6 @@ export const useInterview = () => {
     selfDescription,
     resumeFile,
   }) => {
-    setLoading(true);
     try {
       const response = await generateInterviewReport({
         jobDescription,
@@ -36,8 +35,6 @@ export const useInterview = () => {
     } catch (error) {
       console.log(error);
       throw error;
-    } finally {
-      setLoading(false);
     }
   };
 
